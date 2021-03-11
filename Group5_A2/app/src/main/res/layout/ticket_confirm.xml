@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*	PROJECT: PROG3150 - ASSIGNMENT 1
+*	FILE: ticket_confirm.xml
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2020/04/08
+*	DESCRIPTION:
+		This file is the layout of the ticket confirmation screen.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:paddingTop="8sp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/ConfirmTicketMessage"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ticket_confirm_label" />
+
+    <TextView
+        android:id="@+id/destination_view"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ConfirmTicketMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="start"
+        android:layout_marginTop="30sp"
+        android:text="@string/your_destination"
+        android:textSize="15sp"/>
+
+    <ImageView
+        android:id="@+id/hotel_image"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_below="@+id/destination_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8sp"
+        android:contentDescription="@string/hotel1_name"
+        android:src="@drawable/hotel1_image" />
+
+    <TextView
+        android:id="@+id/hotel_name"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hotel_image"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="start"
+        android:layout_marginTop="8sp"
+        android:text="@string/hotel1_name"
+        android:textSize="23sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@+id/hotel_name"
+        android:layout_marginTop="4sp"
+        android:layout_marginStart="110sp"
+        android:layout_marginEnd="110sp"
+        android:layout_height="1sp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/startDate_view"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hotel_name"
+        android:layout_gravity="start"
+        android:layout_marginStart="120sp"
+        android:layout_marginTop="25sp"
+        android:text="@string/date"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/endDate_view"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hotel_name"
+        android:layout_alignStart="@id/startDate_view"
+        android:layout_gravity="start"
+        android:layout_marginStart="100sp"
+        android:layout_marginTop="25sp"
+        android:text="@string/end_date"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/numOfAdults_view"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startDate_view"
+        android:layout_gravity="start"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="160sp"
+        android:text="@string/_0_adults"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/numOfChildren_view"
+        style="@style/MyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/numOfAdults_view"
+        android:layout_gravity="start"
+        android:layout_marginTop="14sp"
+        android:layout_marginStart="160sp"
+        android:text="@string/_0_children"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/numOfChildren_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80sp"
+        android:text="@string/ticket_confirm" />
+
+    <CheckBox
+        android:id="@+id/chkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/numOfChildren_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
+        android:text="@string/agree_to_terms_and_conditions" />
+
+</RelativeLayout>

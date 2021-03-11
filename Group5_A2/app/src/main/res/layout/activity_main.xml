@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*	PROJECT: PROG3150 - ASSIGNMENT 1
+*	FILE: activity_main.xml
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2020/04/08
+*	DESCRIPTION:
+		This file is the layout of the starting screen.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:layout_alignParentStart="true"
+    tools:context=".MainActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/destination_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_view"
+        android:text="@string/destination_label"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_view"
+        android:text="@string/welcome"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+
+
+    <EditText
+        android:id="@+id/destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/destination_view"
+        android:layout_alignBaseline="@id/destination_view"
+        android:layout_alignParentEnd="true"
+        android:textSize="20sp"
+        android:hint="@string/choose_a_destination"
+        android:singleLine="true"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/startDate_view"
+        android:layout_below="@id/destination_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/startDate_label"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/startDate_view"
+        android:layout_below="@id/destination"
+        android:layout_alignBaseline="@id/startDate_view"
+        android:layout_alignStart="@id/destination"
+        android:hint="@string/select_a_date"
+        android:textSize="20sp"
+        android:focusable="false"
+        android:inputType="date"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/endDate_view"
+        android:layout_below="@id/startDate_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/endDate_label"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/endDate_view"
+        android:layout_below="@id/startDate"
+        android:layout_alignBaseline="@id/endDate_view"
+        android:layout_alignStart="@id/startDate"
+        android:hint="@string/select_a_date"
+        android:textSize="20sp"
+        android:focusable="false"
+        android:inputType="date"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/numOfAdults_view"
+        android:layout_below="@id/endDate_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/numOfAdults_label"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+    <SeekBar
+        android:id="@+id/numOfAdults_seekBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/numOfAdults_view"
+        android:layout_alignLeft="@id/numOfAdults_view"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="60dp"
+        />
+
+    <TextView
+        android:id="@+id/numOfAdults_progress"
+        android:layout_alignEnd="@id/destination"
+        android:layout_alignTop="@id/numOfAdults_seekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="20sp"
+        android:layout_marginTop="-6dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:id="@+id/numOfChildren_view"
+        android:layout_below="@id/numOfAdults_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/numOfChildren_label"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+    <SeekBar
+        android:id="@+id/numOfChildren_seekBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/numOfChildren_view"
+        android:layout_alignLeft="@id/numOfAdults_view"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="60dp"
+        />
+
+    <TextView
+        android:id="@+id/numOfChildren_progress"
+        android:layout_alignRight="@id/destination"
+        android:layout_alignTop="@id/numOfChildren_seekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="20sp"
+        android:layout_marginTop="-6dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchHotels_btn"
+        android:layout_below="@id/numOfChildren_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/searchHotel_label"
+        />
+
+</RelativeLayout>

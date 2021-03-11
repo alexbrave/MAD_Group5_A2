@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <item
+        android:id="@+id/welcome_layout"
+        android:title="@string/welcome_label" />
+    <item
+        android:id="@+id/hotels_layout"
+        android:title="@string/choose_hotel" />
+    <item
+        android:id="@+id/confirm_layout"
+        android:title="@string/ticket_confirm" />
+</menu>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mymenu_activity2"
+        android:title="@string/choose_hotel"/>
+    <item android:id="@+id/mymenu_activity3"
+        android:title="@string/ticket_confirm"/>
+<!--The sample code in module 4 shows how to add icons to these items,
+    if we wish to do so-->
+</menu>

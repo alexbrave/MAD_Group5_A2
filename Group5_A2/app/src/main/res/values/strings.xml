@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">Group5_A2</string>
+    <string name="choose_hotel">Choose Hotel</string>
+    <string name="ticket_confirm">Confirm Ticket</string>
+    <string name="ticket_confirm_label">Confirm Your Ticket</string>
+    <string name="destination_label">Destination:</string>
+    <string name="welcome_label">Destination</string>
+    <string name="your_destination">Your Destination</string>
+    <string name="welcome">Welcome</string>
+    <string name="success">Ticket Confirmed Successfully!</string>
+    <string name="startDate_label">Start Date:</string>
+    <string name="endDate_label">End Date:</string>
+    <string name="numOfAdults_label">Number of adults:</string>
+    <string name="numOfChildren_label">Number of children:</string>
+    <string name="searchHotel_label">Search Hotels</string>
+    <string name="home_layout_label">Current screen: Home</string>
+    <string name="choose_hotel_layout_label">Current screen: Hotels</string>
+    <string name="confirm_layout_label">Current screen: Confirm Ticket</string>
+
+    <!-- Error messages for invalid date of the start date-->
+    <string name="startDate_error_msg">Sorry! invalid start date.</string>
+
+    <!-- Error messages for invalid date of the start date-->
+    <string name="endDate_error_msg">Sorry! invalid end date.</string>
+
+    <!-- Error messages for invalid dates -->
+    <string name="invalidDate_msg">Sorry! invalid date.</string>
+
+    <!-- prompt to choose a date after selecting invalid date-->
+    <string name="chooseDate_label">Select a date</string>
+
+    <!-- messages for mandatory fields-->
+    <string name="required_inputs">Please fill out all the required inputs and then search hotels!</string>
+
+    <!-- messages for minimum adults-->
+    <string name="minNumAdults_message">Sorry! At least 1 adult on the trip</string>
+
+    <!-- minimum adults-->
+    <string name="minNumAdults_hint">e.g. 10</string>
+
+    <!-- Following are the names of the hotels -->
+    <string name="hotel1_name">Grand Fiesta Resort</string>
+    <string name="hotel2_name">Chalet Belle Roche</string>
+    <string name="hotel3_name">Hotel Britannique</string>
+
+
+    <!-- Following are the hotel descriptions -->
+
+    <string name="hotel1_description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis et viverra elit, et placerat eros. Mauris id ornare felis.
+        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.
+        Duis eu rhoncus odio. Aliquam vel placerat neque.
+        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.
+        Proin volutpat accumsan nulla nec aliquam.
+    </string>
+    <string name="hotel2_description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis et viverra elit, et placerat eros. Mauris id ornare felis.
+        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.
+        Duis eu rhoncus odio. Aliquam vel placerat neque.
+        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.
+        Proin volutpat accumsan nulla nec aliquam.
+    </string>
+    <string name="hotel3_description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis et viverra elit, et placerat eros. Mauris id ornare felis.
+        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.
+        Duis eu rhoncus odio. Aliquam vel placerat neque.
+        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.
+        Proin volutpat accumsan nulla nec aliquam.
+    </string>
+
+
+    <!-- Here are some messages that are used in the app -->
+    <string name="chooseHotelMessage">Please choose a hotel</string>
+    <string name="destinationLabel">Destination: </string>
+    <string name="num_of_guests_label">Accommodates: </string>
+    <string name="choose_hotel_error">--</string>
+
+
+    <string name="placeholder">Placeholder</string>
+    <string name="select">Select</string>
+    <string name="agree_to_terms_and_conditions">Agree To Terms and Conditions</string>
+    <string name="agree_not_checked">Please accept the Terms and Conditions</string>
+    <string name="end_date">End Date</string>
+    <string name="_0_children">0 Children</string>
+    <string name="_0_adults">0 Adults</string>
+    <string name="date">Date</string>
+    <string name="e_g_10">e.g. 10</string>
+    <string name="select_a_date">Select a date</string>
+    <string name="choose_a_destination">Choose a destination</string>
+
+
+</resources>
