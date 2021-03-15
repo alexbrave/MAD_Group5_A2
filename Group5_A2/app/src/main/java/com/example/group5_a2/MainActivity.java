@@ -245,6 +245,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        // For testing purpose
+        mDestination.setText("Waterloo");
+        mStartDate.setText("2021/3/21");
+        mEndDate.setText("2021/3/22");
+        mNumAdultsSeekBar.setProgress(5);
+        mNumChildSeekBar.setProgress(5);
     }
 
     // added to test/debug/implement state management - alex, feb 13
