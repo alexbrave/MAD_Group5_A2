@@ -30,7 +30,7 @@ import androidx.fragment.app.FragmentManager;
 
 /*
  *  NAME : ChooseHotel
- *  PURPOSE : The purpose of this class is to display the interface for hotel selection.
+ *  PURPOSE : The purpose of this class is to host the display of the interface for hotel selection.
  */
 public class ChooseHotel extends AppCompatActivity {
     private final int NONE = 0;
@@ -71,6 +71,7 @@ public class ChooseHotel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_hotels_container_layout);
 
+        // get preferences
         savedValues = getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
 
         // check whether the action bar is null

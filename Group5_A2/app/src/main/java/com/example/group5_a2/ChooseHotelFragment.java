@@ -1,5 +1,6 @@
 package com.example.group5_a2;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+/*
+ *  NAME : ChooseHotelFragment
+ *  PURPOSE : The purpose of this class is to display the interface for hotel selection.
+ */
 public class ChooseHotelFragment extends Fragment implements View.OnClickListener {
     Button hotel1_button = null;
     Button hotel2_button = null;
@@ -72,39 +77,39 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.choose_hotel_layout, container, false);
 
-//        savedValues = getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
-//
-//        choose_hotel_options = (LinearLayout) findViewById(R.id.choose_hotel_options);
-//        choose_hotel_error = (TextView) findViewById(R.id.choose_hotel_error);
-//
-//        LoadData();
-//
-//        if(destination.equals(EMPTY) || number_of_guests == NONE){
-//            choose_hotel_options.setVisibility(View.GONE);
-//            choose_hotel_error.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            choose_hotel_error.setVisibility(View.GONE);
-//            choose_hotel_options.setVisibility(View.VISIBLE);
-//            // Set the chosen destination to each hotel
-//            TextView hotel1_dest = (TextView)findViewById(R.id.hotel1_location);
-//            hotel1_dest.setText(destination);
-//            TextView hotel2_dest = (TextView)findViewById(R.id.hotel2_location);
-//            hotel2_dest.setText(destination);
-//            TextView hotel3_dest = (TextView)findViewById(R.id.hotel3_location);
-//            hotel3_dest.setText(destination);
-//
-//            // Set the number of guests to the number accommodated by each hotel
-//            TextView hotel1_guests = (TextView)findViewById(R.id.hotel1_num_of_guests);
-//            hotel1_guests.setText(String.valueOf(number_of_guests));
-//            TextView hotel2_guests = (TextView)findViewById(R.id.hotel2_num_of_guests);
-//            hotel2_guests.setText(String.valueOf(number_of_guests));
-//            TextView hotel3_guests = (TextView)findViewById(R.id.hotel3_num_of_guests);
-//            hotel3_guests.setText(String.valueOf(number_of_guests));
-//        }
-//
-//        // Hook up buttons to event handlers
-//
+        savedValues = getActivity().getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
+
+        choose_hotel_options = (LinearLayout) v.findViewById(R.id.choose_hotel_options);
+        choose_hotel_error = (TextView) v.findViewById(R.id.choose_hotel_error);
+
+        LoadData();
+
+        if(destination.equals(EMPTY) || number_of_guests == NONE){
+            choose_hotel_options.setVisibility(View.GONE);
+            choose_hotel_error.setVisibility(View.VISIBLE);
+        }
+        else {
+            choose_hotel_error.setVisibility(View.GONE);
+            choose_hotel_options.setVisibility(View.VISIBLE);
+            // Set the chosen destination to each hotel
+            TextView hotel1_dest = (TextView) v.findViewById(R.id.hotel1_location);
+            hotel1_dest.setText(destination);
+            TextView hotel2_dest = (TextView) v.findViewById(R.id.hotel2_location);
+            hotel2_dest.setText(destination);
+            TextView hotel3_dest = (TextView) v.findViewById(R.id.hotel3_location);
+            hotel3_dest.setText(destination);
+
+            // Set the number of guests to the number accommodated by each hotel
+            TextView hotel1_guests = (TextView) v.findViewById(R.id.hotel1_num_of_guests);
+            hotel1_guests.setText(String.valueOf(number_of_guests));
+            TextView hotel2_guests = (TextView) v.findViewById(R.id.hotel2_num_of_guests);
+            hotel2_guests.setText(String.valueOf(number_of_guests));
+            TextView hotel3_guests = (TextView) v.findViewById(R.id.hotel3_num_of_guests);
+            hotel3_guests.setText(String.valueOf(number_of_guests));
+        }
+
+        // Hook up buttons to event handlers
+
         hotel1_button = (Button) v.findViewById(R.id.select_hotel1);
         hotel1_button.setOnClickListener(this);
         hotel2_button = (Button) v.findViewById(R.id.select_hotel2);
@@ -142,6 +147,39 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
                 .addToBackStack(null)
                 .commit();
 
+    }
+
+    /*
+     *	Function: SaveData()
+     *	Description:
+     *       The purpose of this function is to save the saved preferences
+     *	Parameter: Not receive anything
+     *	Return: None
+     */
+    private void SaveData() {
+        // save the instance variables
+
+        SharedPreferences.Editor editor = savedValues.edit();
+        editor.putString("destination", destination);
+        editor.putInt("number_of_guests", number_of_guests);
+        editor.putInt("chosen_hotel", chosen_hotel);
+
+        editor.apply();
+    }
+
+
+    /*
+     *	Function: LoadData()
+     *	Description:
+     *       The purpose of this function is to load saved preferences
+     *	Parameter: Not receive anything
+     *	Return: None
+     */
+    private void LoadData() {
+        destination = savedValues.getString(sharedDestination, EMPTY);
+        number_of_guests = savedValues.getInt(sharedNumOfAdults, NONE);
+        number_of_guests += savedValues.getInt(sharedNumOfChildren, NONE);
+        chosen_hotel = savedValues.getInt(sharedHotelChoice, NONE);
     }
 
 

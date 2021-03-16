@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private int number_of_guests = NONE;
     private int chosen_hotel = NONE;
 
+    private final int confirm_ticket_item = 2;
 
     // Getters
     public Button getSearchButton() {
@@ -341,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.options_menu_layout, menu);
+        menu.getItem(confirm_ticket_item).setEnabled(false);
         return true;
     }
 
