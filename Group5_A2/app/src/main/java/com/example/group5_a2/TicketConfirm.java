@@ -92,6 +92,7 @@ public class TicketConfirm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.ticket_confirm, container, false);
         savedValues = getActivity().getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = savedValues.edit();
 
         confirmButton = (Button) mainView.findViewById(R.id.confirm_btn);
 
@@ -152,6 +153,12 @@ public class TicketConfirm extends Fragment {
                 Toast.makeText(TicketConfirm.this.getActivity(),
                         R.string.success,
                         Toast.LENGTH_SHORT).show();
+
+                // Reset everything including preferences
+                editor.clear();
+                editor.commit();
+                MainActivity.mCanGoNextState = false;
+                MainActivity.mReset = true;
             }
         });
         return mainView;

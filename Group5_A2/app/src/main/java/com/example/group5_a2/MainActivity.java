@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private String mNumOfChildrenValue;
     private final int iDateSize = 3;
     static public boolean mCanGoNextState = false;
+    static public boolean mReset = false;
 
 
     // Shared Preferences values/variables
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         mNumAdultsSeekBar.setMax(10);
         mNumChildSeekBar.setMax(10);
+
 
         /* Check whether the state of the instance not empty.
          *  If not empty, restore the state
@@ -328,6 +330,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+     *	Function: onResume()
+     *	Description:
+     *       Loads data on resume
+     *	Parameter: Not receive anything
+     *	Return: None
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /* Check whether the user has been confirmed their ticket
+         *  and started to choose their destination again
+         */
+        if(mReset == true && mCanGoNextState == false)
+        {
+            mDestination.setText("");
+            mStartDate.setText("");
+            mEndDate.setText("");
+            mNumAdultsSeekBar.setProgress(0);
+            mNumChildSeekBar.setProgress(0);
+        }
+
+    }
 
     /*
      *	Function: onCreateOptionsMenu(Menu menu)
