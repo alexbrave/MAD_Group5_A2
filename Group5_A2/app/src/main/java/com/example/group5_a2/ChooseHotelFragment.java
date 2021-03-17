@@ -146,7 +146,6 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
                 .replace(R.id.choose_hotels_fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
-
     }
 
     /*

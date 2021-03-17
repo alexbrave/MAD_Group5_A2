@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -108,7 +109,7 @@ public class ChooseHotel extends AppCompatActivity {
 
 
     /*
-     *	Function: onSaveInstanceState(MenuItem item)
+     *	Function: onOptionsItemSelected(MenuItem item)
      *	Description:
      *       The purpose of this function is to switch screens when the menu item is selected
      *	Parameter: MenuItem item: Menu Item that is selected
@@ -130,6 +131,21 @@ public class ChooseHotel extends AppCompatActivity {
             startActivity(intent);
             finish(); // close the choose hotel layout since they redirect back to the home layout
             result = true;
+        }
+        if(ID_of_choice == R.id.hotels_layout) {
+            /* check whether the current screen is hotel. If the current stack is hotel screen,
+            *  confirm. Otherwise, go back to hotel screen or fragment
+            */
+            if (fm.getBackStackEntryCount() > 0) {
+                fm.popBackStack();
+                result = true;
+            }
+            else
+            {
+                Toast.makeText(this,
+                        R.string.choose_hotel_layout_label,
+                        Toast.LENGTH_SHORT).show();
+            }
         }
         if(ID_of_choice == R.id.confirm_layout) {
             intent = new Intent(this, TicketConfirm.class);
@@ -213,8 +229,8 @@ public class ChooseHotel extends AppCompatActivity {
      */
     @Override
     public boolean onSupportNavigateUp() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
         } else {
             super.onBackPressed();
         }
