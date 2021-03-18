@@ -1,6 +1,7 @@
 package com.example.group5_a2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -144,12 +146,20 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
 
         mChooseHotelController.SaveData(savedValues, chosen_hotel); // save the chosen hotel in the shared preferences
 
-        fragment = new TicketConfirm();
-        // change fragment and add to backstack
-        fm.beginTransaction()
-                .replace(R.id.choose_hotels_fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+//        fragment = new ChooseHotelDetailFragment();
+//        // change fragment and add to backstack
+//        fm.beginTransaction()
+//                .replace(R.id.choose_hotels_fragment_container, fragment)
+//                .addToBackStack(null)
+//                .commit();
+
+        // testing ticket confirm purpose
+        Intent intent = null;
+        intent = new Intent(ChooseHotelFragment.this.getActivity(), TicketConfirm.class);
+        startActivity(intent);
+        Toast.makeText(ChooseHotelFragment.this.getActivity(),
+                R.string.confirm_layout_label,
+                Toast.LENGTH_SHORT).show();
     }
 
 

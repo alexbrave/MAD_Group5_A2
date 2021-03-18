@@ -36,7 +36,7 @@ import androidx.fragment.app.FragmentManager;
  *  NAME : TicketConfirm
  *  PURPOSE : The purpose of this class is to handle the confirmation for tickets.
  */
-public class TicketConfirm extends Fragment {
+public class TicketConfirm extends AppCompatActivity {
 
     private final int NONE = 0;
     private final String EMPTY = "";
@@ -67,7 +67,6 @@ public class TicketConfirm extends Fragment {
 
     private Button confirmButton;
 
-    FragmentManager fm = null;
 
     /*
     *	Function: onCreate(@Nullable Bundle SavedInstanceState)
@@ -79,29 +78,17 @@ public class TicketConfirm extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fm = getActivity().getSupportFragmentManager();
-    }
-
-    /*
-     *	Function: onCreate(@Nullable Bundle SavedInstanceState)
-     *	Description:
-     *       The purpose of this function is to create an instance of the TicketConfirm class.
-     *	Parameter: Bundle savedInstanceState: The state of the instance
-     *	Return: void: Not return anything
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.ticket_confirm, container, false);
-        savedValues = getActivity().getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
+        setContentView(R.layout.ticket_confirm);
+        savedValues = getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = savedValues.edit();
 
-        confirmButton = (Button) mainView.findViewById(R.id.confirm_btn);
+        confirmButton = (Button) findViewById(R.id.confirm_btn);
 
         //Load Data from SharedPreferences
         LoadData();
 
-        ImageView hotelIV = (ImageView) mainView.findViewById(R.id.hotel_image);
-        TextView hotelName = (TextView) mainView.findViewById(R.id.hotel_name);
+        ImageView hotelIV = (ImageView) findViewById(R.id.hotel_image);
+        TextView hotelName = (TextView) findViewById(R.id.hotel_name);
 
         // If the user chose hotel 1 in the hotel-choosing activity
         if (chosenHotel == hotel1) {
@@ -124,13 +111,13 @@ public class TicketConfirm extends Fragment {
         if (!startDate.equals(EMPTY) && !endDate.equals(EMPTY) &&
                 numberOfAdults != NONE &&
                 chosenHotel != NONE) {
-            TextView startDateTV = (TextView) mainView.findViewById(R.id.startDate_view);
+            TextView startDateTV = (TextView) findViewById(R.id.startDate_view);
             startDateTV.setText(startDate + " - ");
-            TextView endDateTV = (TextView) mainView.findViewById(R.id.endDate_view);
+            TextView endDateTV = (TextView) findViewById(R.id.endDate_view);
             endDateTV.setText(endDate);
-            TextView numOfAdultsTV = (TextView) mainView.findViewById(R.id.numOfAdults_view);
+            TextView numOfAdultsTV = (TextView) findViewById(R.id.numOfAdults_view);
             numOfAdultsTV.setText(String.valueOf(numberOfAdults) + " Adults");
-            TextView numOfChildrenTV = (TextView) mainView.findViewById(R.id.numOfChildren_view);
+            TextView numOfChildrenTV = (TextView) findViewById(R.id.numOfChildren_view);
             numOfChildrenTV.setText(String.valueOf(numberOfChildren) + " Children");
         }
 
@@ -140,18 +127,19 @@ public class TicketConfirm extends Fragment {
             public void onClick(View v) {
 
                 //Check term agreements
-                agreement = ((CheckBox) mainView.findViewById(R.id.chkBox)).isChecked();
+                agreement = ((CheckBox) findViewById(R.id.chkBox)).isChecked();
                 if (!agreement) {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.agree_not_checked, Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.agree_not_checked, Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
 
-                Intent intent = new Intent(TicketConfirm.this.getActivity(), MainActivity.class);
+                // Confirm successful and back to the beginning
+                Intent intent = new Intent(TicketConfirm.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
-                getActivity().finish();
-                Toast.makeText(TicketConfirm.this.getActivity(),
+                finish();
+                Toast.makeText(TicketConfirm.this,
                         R.string.success,
                         Toast.LENGTH_SHORT).show();
 
@@ -162,8 +150,9 @@ public class TicketConfirm extends Fragment {
                 MainActivity.mReset = true;
             }
         });
-        return mainView;
+
     }
+
 
     /*
      *	Function: LoadData()
