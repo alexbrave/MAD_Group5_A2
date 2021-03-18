@@ -94,9 +94,9 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
         number_of_guests = mChooseHotelController.getNumber_of_guests();
 
         // get hotel detail
-        Hotel hotel1 = new Hotel(getString(R.string.hotel1_name),getString(R.string.hotel1_description), "", 0, 0);
-        Hotel hotel2 = new Hotel(getString(R.string.hotel2_name),getString(R.string.hotel1_description), "", 0, 0);
-        Hotel hotel3 = new Hotel(getString(R.string.hotel3_name),getString(R.string.hotel1_description), "", 0, 0);
+        Hotel hotel1 = new Hotel(getString(R.string.hotel1_name),getString(R.string.hotel1_description), "https://cdn.pixabay.com/photo/2017/02/14/09/26/icy-2065431_960_720.jpg");
+        Hotel hotel2 = new Hotel(getString(R.string.hotel2_name),getString(R.string.hotel1_description), "");
+        Hotel hotel3 = new Hotel(getString(R.string.hotel3_name),getString(R.string.hotel1_description), "");
 
         // add hotel object to an array list
         ArrayList<Hotel> arrHotelList = new ArrayList<>();

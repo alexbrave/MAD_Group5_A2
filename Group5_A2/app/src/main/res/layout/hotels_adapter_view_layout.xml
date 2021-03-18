@@ -24,14 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/hotel_rating"
+            android:layout_marginBottom="3dp"
+            android:text="Description:"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/hotel_price"/>
+            android:maxLines="2"
+            android:lines="2"
+            android:ellipsize="marquee"
+            android:id="@+id/hotel_description"/>
     </LinearLayout>
 
     <ImageView

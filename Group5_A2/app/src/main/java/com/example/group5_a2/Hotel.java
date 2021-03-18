@@ -1,28 +1,11 @@
 package com.example.group5_a2;
 
 public class Hotel {
-    public int getHotelRating() {
-        return mHotelRating;
-    }
 
-    public void setHotelRating(int hotelRating) {
-        mHotelRating = hotelRating;
-    }
-
-    public int getHotelPrice() {
-        return mHotelPrice;
-    }
-
-    public void setHotelPrice(int hotelPrice) {
-        mHotelPrice = hotelPrice;
-    }
-
-    public Hotel(String hotelName, String hotelDescription, String hotelImage, int hotelRating, int hotelPrice) {
+    public Hotel(String hotelName, String hotelDescription, String hotelImage) {
         mHotelName = hotelName;
         mHotelDescription = hotelDescription;
         mHotelImage = hotelImage;
-        mHotelRating = hotelRating;
-        mHotelPrice = hotelPrice;
     }
 
     public String getHotelName() {
@@ -52,6 +35,4 @@ public class Hotel {
     private String mHotelName = null;
     private String mHotelDescription = null;
     private String mHotelImage = null;
-    private int mHotelRating = 0;
-    private int mHotelPrice = 0;
 }
