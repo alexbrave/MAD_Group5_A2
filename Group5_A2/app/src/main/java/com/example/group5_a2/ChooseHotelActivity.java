@@ -33,7 +33,7 @@ import androidx.fragment.app.FragmentManager;
  *  NAME : ChooseHotel
  *  PURPOSE : The purpose of this class is to host the display of the interface for hotel selection.
  */
-public class ChooseHotel extends AppCompatActivity {
+public class ChooseHotelActivity extends AppCompatActivity {
     private final int NONE = 0;
     private final String EMPTY = "";
     private final int welcome_screen_item = 0;

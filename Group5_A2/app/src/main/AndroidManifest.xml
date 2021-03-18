@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChooseHotel"
+            android:name=".ChooseHotelActivity"
             android:label="@string/choose_hotel"
             />
         <activity

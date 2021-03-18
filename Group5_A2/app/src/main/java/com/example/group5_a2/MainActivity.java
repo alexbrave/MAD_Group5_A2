@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     // added to test/debug/implement state management - alex, feb 13
                     SaveData();
 
-                    Intent intent = new Intent(MainActivity.this, ChooseHotel.class);
+                    Intent intent = new Intent(MainActivity.this, ChooseHotelActivity.class);
                     startActivity(intent);
                     Toast.makeText(MainActivity.this,
                             R.string.choose_hotel_layout_label,
@@ -413,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
                     using intent flag to switch between activities if the activity exited. Otherwise,
                     start new activity. Thus, we can keep previous instance state
                 */
-                intent = new Intent(this, ChooseHotel.class);
+                intent = new Intent(this, ChooseHotelActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 Toast.makeText(this,
