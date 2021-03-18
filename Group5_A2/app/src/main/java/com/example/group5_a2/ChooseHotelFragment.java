@@ -38,16 +38,14 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     // Shared Preferences values/variables
     private SharedPreferences savedValues;
     private final String sharedPrefsName = "Saved Values";
-    private final String sharedDestination = "destination";
-    private final String sharedStartDate = "start_date";
-    private final String sharedEndDate = "end_date";
-    private final String sharedNumOfAdults = "number_of_adults";
-    private final String sharedNumOfChildren = "number_of_children";
-    private final String sharedHotelChoice = "chosen_hotel";
+
     // define instance variables
     private String destination = EMPTY;
     private int number_of_guests = NONE;
     private int chosen_hotel = NONE;
+
+
+    ChooseHotelController mChooseHotelController = null;
 
     // Fragments
     FragmentManager fm = null;
@@ -63,7 +61,9 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mChooseHotelController = new ChooseHotelController();
         fm = getActivity().getSupportFragmentManager();
+
     }
 
     /*
@@ -82,7 +82,9 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
         choose_hotel_options = (LinearLayout) v.findViewById(R.id.choose_hotel_options);
         choose_hotel_error = (TextView) v.findViewById(R.id.choose_hotel_error);
 
-        LoadData();
+        mChooseHotelController.LoadData(savedValues);
+        destination = mChooseHotelController.getDestination();
+        number_of_guests = mChooseHotelController.getNumber_of_guests();
 
         if(destination.equals(EMPTY) || number_of_guests == NONE){
             choose_hotel_options.setVisibility(View.GONE);
@@ -140,6 +142,8 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
             chosen_hotel = hotel3;
         }
 
+        mChooseHotelController.SaveData(savedValues, chosen_hotel); // save the chosen hotel in the shared preferences
+
         fragment = new TicketConfirm();
         // change fragment and add to backstack
         fm.beginTransaction()
@@ -148,38 +152,6 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
                 .commit();
     }
 
-    /*
-     *	Function: SaveData()
-     *	Description:
-     *       The purpose of this function is to save the saved preferences
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    private void SaveData() {
-        // save the instance variables
-
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("destination", destination);
-        editor.putInt("number_of_guests", number_of_guests);
-        editor.putInt("chosen_hotel", chosen_hotel);
-
-        editor.apply();
-    }
-
-
-    /*
-     *	Function: LoadData()
-     *	Description:
-     *       The purpose of this function is to load saved preferences
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    private void LoadData() {
-        destination = savedValues.getString(sharedDestination, EMPTY);
-        number_of_guests = savedValues.getInt(sharedNumOfAdults, NONE);
-        number_of_guests += savedValues.getInt(sharedNumOfChildren, NONE);
-        chosen_hotel = savedValues.getInt(sharedHotelChoice, NONE);
-    }
 
 
 }
