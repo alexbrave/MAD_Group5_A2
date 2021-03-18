@@ -205,11 +205,8 @@ public class MainActivity extends AppCompatActivity {
                     // added to test/debug/implement state management - alex, feb 13
                     SaveData();
 
-                    Intent intent = new Intent(MainActivity.this, ChooseHotelActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ASyncDownload.class);
                     startActivity(intent);
-                    Toast.makeText(MainActivity.this,
-                            R.string.choose_hotel_layout_label,
-                            Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
