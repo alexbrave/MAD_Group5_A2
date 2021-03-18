@@ -40,6 +40,9 @@
 
     <!-- Following are the names of the hotels -->
     <string name="hotel1_name">Grand Fiesta Resort</string>
+    <string name="hotel1_rating">Rating: 5 stars</string>
+    <string name="hotel1_price">200$</string>
+
     <string name="hotel2_name">Chalet Belle Roche</string>
     <string name="hotel3_name">Hotel Britannique</string>
 
