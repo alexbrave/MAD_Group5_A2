@@ -85,6 +85,30 @@ public class ASyncDownload extends AppCompatActivity {
 
 
     /*
+     *	Function: onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+     *	Description:
+     *       This function validates the request permission and its results
+     *	Parameter:
+     * int requestCode                  : Request Code To Listen For
+     * @NonNull String[] permissions    : Permission Check
+     * @NonNull int[] grantResults      : Results
+     *	Return: void: Not return anything
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new DownloadFileFromURL().execute(downloadables[currentDownloadIterator]);
+                } else {
+                    Toast.makeText(mContext, "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    /*
      *	Function: hasPermissions(Context context, String... permissions)
      *	Description:
      *       The purpose of this function is to obtain permissions from the system for our application
@@ -197,6 +221,10 @@ public class ASyncDownload extends AppCompatActivity {
             }
             else
             {
+                //Update Progress Bar to Max
+                double progression = 100 *  ((double)currentDownloadIterator/downloadables.length);
+                progressBar.setProgress((int)progression);
+
                 //Wait 3 second before starting next download
                 try {
                     Thread.sleep(3 * 1000);
