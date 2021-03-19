@@ -55,6 +55,8 @@ public class ChooseHotelActivity extends AppCompatActivity {
     private int number_of_guests = NONE;
     private int chosen_hotel = NONE;
 
+    public static boolean mAreHotelsDownloaded = false;
+
     // Fragments
     FragmentManager fm = null;
     Fragment fragment = null;
@@ -71,6 +73,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_hotels_container_layout);
+        mAreHotelsDownloaded = true;
 
         // get preferences
         savedValues = getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
@@ -229,10 +232,27 @@ public class ChooseHotelActivity extends AppCompatActivity {
      */
     @Override
     public boolean onSupportNavigateUp() {
+
         if (fm.getBackStackEntryCount() > 0) {
             fm.popBackStack();
         } else {
-            super.onBackPressed();
+            if(mAreHotelsDownloaded == true)
+            {
+                /* when user switch back to home layout, they have to hit the search hotels button again. Otherwise
+                *  they can not move to choose hotels layout
+                */
+                MainActivity.mCanGoNextState = false; // reset
+                mAreHotelsDownloaded = false; // reset
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish(); // close the choose hotel layout since they redirect back to the home layout
+            }
+            else
+            {
+                super.onBackPressed();
+            }
+
         }
         return true;
     }

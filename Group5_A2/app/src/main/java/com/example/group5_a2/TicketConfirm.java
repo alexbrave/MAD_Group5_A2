@@ -10,6 +10,7 @@
 */
 package com.example.group5_a2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.bumptech.glide.Glide;
 
 
 /*
@@ -48,6 +53,10 @@ public class TicketConfirm extends AppCompatActivity {
     private final int confirm_ticket_item = 2;
     private final String TAG = "TicketConfirm";
 
+    // key names for saving values when the hotel is being selected for reviewing
+    private final String HOTEL_NAME_KEY = "hotel_name";
+    private final String HOTEL_IMAGE_KEY = "hotel_image";
+
     // Shared Preferences values/variables
     private SharedPreferences savedValues;
     private final String sharedPrefsName = "Saved Values";
@@ -63,8 +72,8 @@ public class TicketConfirm extends AppCompatActivity {
     private boolean agreement = false;
     private int numberOfAdults = NONE;
     private int numberOfChildren = NONE;
-    private int chosenHotel = NONE;
-
+    private String mChosenHotel = EMPTY;
+    private String mChosenHotelImage = EMPTY;
     private Button confirmButton;
 
 
@@ -90,27 +99,19 @@ public class TicketConfirm extends AppCompatActivity {
         ImageView hotelIV = (ImageView) findViewById(R.id.hotel_image);
         TextView hotelName = (TextView) findViewById(R.id.hotel_name);
 
-        // If the user chose hotel 1 in the hotel-choosing activity
-        if (chosenHotel == hotel1) {
-            // Set hotel image and name
-            hotelIV.setImageResource(R.drawable.hotel1_image);
-            hotelName.setText(R.string.hotel1_name);
-        }
-        // If the user chose hotel 2 in the hotel-choosing activity
-        else if (chosenHotel == hotel2) {
-            // Set hotel image and name
-            hotelIV.setImageResource(R.drawable.hotel2_image);
-            hotelName.setText(R.string.hotel2_name);
-        } else if (chosenHotel == hotel3) {
-            // Set hotel image and name
-            hotelIV.setImageResource(R.drawable.hotel3_image);
-            hotelName.setText(R.string.hotel3_name);
+        // check whether the action bar is null
+        if( getSupportActionBar() != null )
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // display back button
         }
 
         //Setting string contents for display
-        if (!startDate.equals(EMPTY) && !endDate.equals(EMPTY) &&
-                numberOfAdults != NONE &&
-                chosenHotel != NONE) {
+        if (!startDate.equals(EMPTY) && !endDate.equals(EMPTY) && !mChosenHotel.equals(EMPTY)
+                && !mChosenHotelImage.equals(EMPTY) && numberOfAdults != NONE)
+        {
+            Glide.with(this).load(mChosenHotelImage).placeholder(R.drawable.hotel1_image).into(hotelIV);
+            hotelIV.setContentDescription(mChosenHotel);
+            hotelName.setText(mChosenHotel);
             TextView startDateTV = (TextView) findViewById(R.id.startDate_view);
             startDateTV.setText(startDate + " - ");
             TextView endDateTV = (TextView) findViewById(R.id.endDate_view);
@@ -153,6 +154,54 @@ public class TicketConfirm extends AppCompatActivity {
 
     }
 
+    /*
+     *	Function: onCreateOptionsMenu(Menu menu)
+     *	Description:
+     *       The purpose of this function is to create an options menu
+     *	Parameter: Menu menu: Menu that is selected that is being created
+     *	Return: boolean: returns true/success
+     */
+    @SuppressLint("RestrictedApi") // Igor's code had this part, but i'm not sure what it's for
+    // - alex, feb 13
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.options_menu_layout, menu);
+        return true;
+    }
+
+    /*
+     *	Function: onOptionsItemSelected(MenuItem item)
+     *	Description:
+     *       The purpose of this function is to switch screens when the menu item is selected
+     *	Parameter: MenuItem item: Menu Item that is selected
+     *	Return: void: Not return anything
+     */
+    // This code was borrowed from Igor's sample code. -alex, feb 13
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean result = false;
+        Intent intent = null;
+        int ID_of_choice = item.getItemId();
+        if(ID_of_choice == R.id.welcome_layout){
+            /* when user switch back to home layout, they have to hit the search hotels button again. Otherwise
+                they can not move to choose hotels layout
+            */
+            MainActivity.mCanGoNextState = false;
+            intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            finish(); // close the choose hotel layout since they redirect back to the home layout
+            result = true;
+        }
+        if(ID_of_choice == R.id.hotels_layout) {
+            this.onSupportNavigateUp();
+        }
+        if(ID_of_choice == R.id.confirm_layout) {
+            Toast.makeText(this, R.string.confirm_layout_label, Toast.LENGTH_SHORT).show();
+        }
+        return result;
+    }
 
     /*
      *	Function: LoadData()
@@ -166,7 +215,21 @@ public class TicketConfirm extends AppCompatActivity {
         endDate = savedValues.getString(sharedEndDate, EMPTY);
         numberOfAdults = savedValues.getInt(sharedNumOfAdults, NONE);
         numberOfChildren = savedValues.getInt(sharedNumOfChildren, NONE);
-        chosenHotel = savedValues.getInt(sharedHotelChoice, NONE);
+        mChosenHotel = getIntent().getStringExtra(HOTEL_NAME_KEY);
+        mChosenHotelImage = getIntent().getStringExtra(HOTEL_IMAGE_KEY);
+    }
+
+    /*
+     *	Function: onSupportNavigateUp()
+     *	Description:
+     *       The purpose of this function is to implement backward functionality
+     *	Parameter: Not receive anything
+     *	Return: None
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
     }
 }
 

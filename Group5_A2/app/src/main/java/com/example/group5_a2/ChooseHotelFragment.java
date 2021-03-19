@@ -89,7 +89,7 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.choose_hotel_layout, container, false);
         lvHotel = v.findViewById(R.id.hotel_list_view);
-
+        Log.i(TAG, String.valueOf(fm.getBackStackEntryCount()));
         savedValues = getActivity().getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
 
 //        choose_hotel_options = (LinearLayout) v.findViewById(R.id.choose_hotel_options);
