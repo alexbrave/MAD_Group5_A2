@@ -557,7 +557,6 @@ public class MainActivity extends AppCompatActivity {
      *	Return: boolean: return true of the all of the inputs are filled. Otherwise, false
      */
     public boolean checkInput() {
-        boolean bRetCode = true;
         if (this.getDestination().getText().toString().isEmpty() ||
                 this.getStartDate().getText().toString().isEmpty() ||
                 this.getEndDate().getText().toString().isEmpty()) {
@@ -565,8 +564,7 @@ public class MainActivity extends AppCompatActivity {
                     R.string.required_inputs,
                     Snackbar.LENGTH_SHORT);
             mySnackBar.show();
-            bRetCode = false;
-            return bRetCode;
+            return false;
         }
 
         // check whether the num of adults are valid
@@ -575,10 +573,10 @@ public class MainActivity extends AppCompatActivity {
                     R.string.minNumAdults_message,
                     Snackbar.LENGTH_SHORT);
             mySnackBar.show();
-            bRetCode = false;
+            return false;
         }
 
-        return bRetCode;
+        return true;
     }
 
     /*
