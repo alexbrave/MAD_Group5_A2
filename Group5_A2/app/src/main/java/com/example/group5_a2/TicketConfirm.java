@@ -42,39 +42,21 @@ import com.bumptech.glide.Glide;
  *  PURPOSE : The purpose of this class is to handle the confirmation for tickets.
  */
 public class TicketConfirm extends AppCompatActivity {
-
-    private final int NONE = 0;
-    private final String EMPTY = "";
-    private final int hotel1 = 1;
-    private final int hotel2 = 2;
-    private final int hotel3 = 3;
-    private final int welcome_screen_item = 0;
-    private final int choose_hotel_item = 1;
-    private final int confirm_ticket_item = 2;
-    private final String TAG = "TicketConfirm";
-
-    // key names for saving values when the hotel is being selected for reviewing
-    private final String HOTEL_NAME_KEY = "hotel_name";
-    private final String HOTEL_IMAGE_KEY = "hotel_image";
+    // define instance variables
+    private String startDate;
+    private String endDate;
+    private boolean agreement = false;
+    private int numberOfAdults;
+    private int numberOfChildren;
+    private String mChosenHotel;
+    private String mChosenHotelImage;
+    private Button confirmButton;
 
     // Shared Preferences values/variables
     private SharedPreferences savedValues;
-    private final String sharedPrefsName = "Saved Values";
-    private final String sharedDestination = "destination";
-    private final String sharedStartDate = "start_date";
-    private final String sharedEndDate = "end_date";
-    private final String sharedNumOfAdults = "number_of_adults";
-    private final String sharedNumOfChildren = "number_of_children";
-    private final String sharedHotelChoice = "chosen_hotel";
-    // define instance variables
-    private String startDate = EMPTY;
-    private String endDate = EMPTY;
-    private boolean agreement = false;
-    private int numberOfAdults = NONE;
-    private int numberOfChildren = NONE;
-    private String mChosenHotel = EMPTY;
-    private String mChosenHotelImage = EMPTY;
-    private Button confirmButton;
+
+    // model for the TicketConfirm controller
+    private TicketConfirmModel ticketConfirmModel;
 
 
     /*
@@ -88,7 +70,10 @@ public class TicketConfirm extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticket_confirm);
-        savedValues = getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
+
+        ticketConfirmModel = new TicketConfirmModel();
+
+        savedValues = getSharedPreferences(ticketConfirmModel.getTAGSharedPrefs(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = savedValues.edit();
 
         confirmButton = (Button) findViewById(R.id.confirm_btn);
@@ -106,8 +91,8 @@ public class TicketConfirm extends AppCompatActivity {
         }
 
         //Setting string contents for display
-        if (!startDate.equals(EMPTY) && !endDate.equals(EMPTY) && !mChosenHotel.equals(EMPTY)
-                && !mChosenHotelImage.equals(EMPTY) && numberOfAdults != NONE)
+        if (!startDate.equals(ticketConfirmModel.getEMPTY()) && !endDate.equals(ticketConfirmModel.getEMPTY()) && !mChosenHotel.equals(ticketConfirmModel.getEMPTY())
+                && !mChosenHotelImage.equals(ticketConfirmModel.getEMPTY()) && numberOfAdults != ticketConfirmModel.getNONE())
         {
             Glide.with(this).load(mChosenHotelImage).placeholder(R.drawable.hotel1_image).into(hotelIV);
             hotelIV.setContentDescription(mChosenHotel);
@@ -128,7 +113,7 @@ public class TicketConfirm extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Check term agreements
-                agreement = ((CheckBox) findViewById(R.id.chkBox)).isChecked();
+                agreement = ((CheckBox) findViewById(R.id.checkbox)).isChecked();
                 if (!agreement) {
                     Toast toast = Toast.makeText(getApplicationContext(), R.string.agree_not_checked, Toast.LENGTH_SHORT);
                     toast.show();
@@ -211,12 +196,12 @@ public class TicketConfirm extends AppCompatActivity {
      *	Return: None
      */
     private void LoadData() {
-        startDate = savedValues.getString(sharedStartDate, EMPTY);
-        endDate = savedValues.getString(sharedEndDate, EMPTY);
-        numberOfAdults = savedValues.getInt(sharedNumOfAdults, NONE);
-        numberOfChildren = savedValues.getInt(sharedNumOfChildren, NONE);
-        mChosenHotel = getIntent().getStringExtra(HOTEL_NAME_KEY);
-        mChosenHotelImage = getIntent().getStringExtra(HOTEL_IMAGE_KEY);
+        startDate = savedValues.getString(ticketConfirmModel.getTAGSharedStartDate(), ticketConfirmModel.getEMPTY());
+        endDate = savedValues.getString(ticketConfirmModel.getTAGSharedEndDate(), ticketConfirmModel.getEMPTY());
+        numberOfAdults = savedValues.getInt(ticketConfirmModel.getTAGSharedNumAdults(), ticketConfirmModel.getNONE());
+        numberOfChildren = savedValues.getInt(ticketConfirmModel.getTAGSSharedNumChildren(), ticketConfirmModel.getNONE());
+        mChosenHotel = getIntent().getStringExtra(ticketConfirmModel.getHOTEL_NAME_KEY());
+        mChosenHotelImage = getIntent().getStringExtra(ticketConfirmModel.getHOTEL_IMAGE_KEY());
     }
 
     /*

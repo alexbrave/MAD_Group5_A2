@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/hotel_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_below="@+id/destination_view"
@@ -75,7 +75,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hotel_name"
-        android:layout_gravity="start"
         android:layout_marginStart="120sp"
         android:layout_marginTop="25sp"
         android:text="@string/date"
@@ -120,22 +119,22 @@
         android:layout_centerHorizontal="true"
         android:textSize="18sp"/>
 
-    <Button
-        android:id="@+id/confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/numOfChildren_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80sp"
-        android:text="@string/ticket_confirm" />
-
     <CheckBox
-        android:id="@+id/chkBox"
+        android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/numOfChildren_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20sp"
         android:text="@string/agree_to_terms_and_conditions" />
+
+    <Button
+        android:id="@+id/confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10sp"
+        android:text="@string/ticket_confirm" />
 
 </RelativeLayout>
