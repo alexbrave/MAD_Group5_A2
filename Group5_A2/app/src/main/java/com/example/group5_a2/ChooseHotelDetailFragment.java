@@ -1,3 +1,12 @@
+/*
+*	PROJECT: PROG3150 - ASSIGNMENT 2
+*	FILE: ChooseHotelDetailFragment.java
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2021/03/15
+*	DESCRIPTION:
+		This file contains ChooseHotelDetailFragment java. The purpose of this class is to display the interface of the detail of the chosen hotel
+*/
+
 package com.example.group5_a2;
 
 import android.content.Intent;
@@ -41,7 +50,7 @@ public class ChooseHotelDetailFragment extends Fragment {
     /*
      *	Function: onCreate(@Nullable Bundle SavedInstanceState)
      *	Description:
-     *       The purpose of this function is to create an instance of the TicketConfirm class.
+     *       The purpose of this function is to create an instance of the ChooseHotelDetailFragment class.
      *	Parameter: Bundle savedInstanceState: The state of the instance
      *	Return: void: Not return anything
      */
@@ -49,6 +58,7 @@ public class ChooseHotelDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // get the detail of the chosen hotel to display
         mHotelName = getArguments().getString(HOTEL_NAME_KEY);
         mHotelDescription = getArguments().getString(HOTEL_DESCRIPTION_KEY);
         mHotelImage = getArguments().getString(HOTEL_IMAGE_KEY);
@@ -57,8 +67,10 @@ public class ChooseHotelDetailFragment extends Fragment {
     /*
      *	Function: onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
      *	Description:
-     *       The purpose of this function is to create an instance of the TicketConfirm class.
-     *	Parameter: Bundle savedInstanceState: The state of the instance
+     *       The purpose of this function is to create a view for the ChooseHotelDetailFragment class.
+     *	Parameter: LayoutInflater inflater: the inflater
+     *             ViewGroup container: the container for the interface
+     *             Bundle savedInstanceState: the state of the application
      *	Return: void: Not return anything
      */
     @Nullable

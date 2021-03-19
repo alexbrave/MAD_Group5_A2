@@ -1,3 +1,12 @@
+/*
+*	PROJECT: PROG3150 - ASSIGNMENT 2
+*	FILE: HotelListAdapter.java
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2021/03/15
+*	DESCRIPTION:
+		This file contains HotelListAdapter java which extends from ArrayAdapter<HotelModel>. The purpose of this class is to create adapter for HotelModel instance
+*/
+
 package com.example.group5_a2;
 
 import android.content.Context;
@@ -10,25 +19,46 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class HotelListAdapter extends ArrayAdapter<Hotel> {
+/*
+ *  NAME : HotelListAdapter
+ *  PURPOSE : The purpose of this class is to create adapter for HotelModel instance
+ */
+public class HotelListAdapter extends ArrayAdapter<HotelModel> {
     private String TAG = "HotelListAdapter";
 
     private Context mContext = null;
 
     int mResource = 0;
 
-    public HotelListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Hotel> objects) {
+    /*
+     *	Function: Constructor - HotelListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<HotelModel> objects)
+     *	Description:
+     *       The purpose of this function is to create an instance of the HotelListAdapter class
+     *	Parameter: Context context : the context of the application
+     *             int resource : the resource
+     *             ArrayList<HotelModel> objects : list of hotel model objects
+     *	Return: None
+     */
+    public HotelListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<HotelModel> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
     }
 
+    /*
+     *	Function: Constructor - getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+     *	Description:
+     *       The purpose of this function is to create a view of the HotelModel object for the adapter
+     *	Parameter: int position : the position of the item
+     *             View convertView : the view to be converted
+     *             ViewGroup parent : the parent of the view
+     *	Return: View: Return a HotelModel view
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -38,7 +68,7 @@ public class HotelListAdapter extends ArrayAdapter<Hotel> {
         String sHotelImage = getItem(position).getHotelImage();
 
         // Create hotel object with the information
-        Hotel hHotel = new Hotel(sHotelName, sHotelDescription, sHotelImage);
+        HotelModel hHotel = new HotelModel(sHotelName, sHotelDescription, sHotelImage);
 
         // inflate object to the view
         LayoutInflater inflater = LayoutInflater.from(mContext);

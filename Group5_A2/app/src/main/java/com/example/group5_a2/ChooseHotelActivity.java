@@ -1,11 +1,11 @@
 /*
-*	PROJECT: PROG3150 - ASSIGNMENT 1
-*	FILE: TicketConfirm.java
+*	PROJECT: PROG3150 - ASSIGNMENT 2
+*	FILE: ChooseHotelActivity.java
 *	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
-*	FIRST VERSION: 2020/04/08
+*	FIRST VERSION: 2021/03/15
 *	DESCRIPTION:
-		This file contains ChooseHotel java class which is a subclass of AppCompatActivity and implemnts View.OnClickListener.
-		The purpose of this class is to display hotels to the user.
+		This file contains ChooseHotelActivity java class which is a subclass of AppCompatActivity.
+		The purpose of this class is to host 2 fragments which are ChooseHotelFragment and ChooseHotelDetailFragment class
 */
 package com.example.group5_a2;
 
@@ -28,32 +28,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.group5_a2.ChooseHotelFragment;
+import com.example.group5_a2.MainActivity;
+import com.example.group5_a2.R;
+import com.example.group5_a2.TicketConfirm;
+
 
 /*
  *  NAME : ChooseHotel
- *  PURPOSE : The purpose of this class is to host the display of the interface for hotel selection.
+ *  PURPOSE : The purpose of this class is to host host 2 fragments which are ChooseHotelFragment and ChooseHotelDetailFragment class
  */
 public class ChooseHotelActivity extends AppCompatActivity {
     private final int NONE = 0;
     private final String EMPTY = "";
     private final int welcome_screen_item = 0;
     private final int choose_hotel_item = 1;
-    private final int confirm_ticket_item = 2;
     private final String TAG = "ChooseHotel";
-
-    // Shared Preferences values/variables
-    private SharedPreferences savedValues;
-    private final String sharedPrefsName = "Saved Values";
-    private final String sharedDestination = "destination";
-    private final String sharedStartDate = "start_date";
-    private final String sharedEndDate = "end_date";
-    private final String sharedNumOfAdults = "number_of_adults";
-    private final String sharedNumOfChildren = "number_of_children";
-    private final String sharedHotelChoice = "chosen_hotel";
-    // define instance variables
-    private String destination = EMPTY;
-    private int number_of_guests = NONE;
-    private int chosen_hotel = NONE;
 
     public static boolean mAreHotelsDownloaded = false;
 
@@ -61,11 +51,12 @@ public class ChooseHotelActivity extends AppCompatActivity {
     FragmentManager fm = null;
     Fragment fragment = null;
 
+
     /*
      *	Function: onCreate(Bundle savedInstanceState)
      *	Description:
-     *       The purpose of this function is to create an instance of the ChooseHotel class. And create
-     *          event handler for widgets on the choose_hotel_layout layout
+     *       The purpose of this function is to create an instance of the ChooseHotel class. And host
+     *         the ChooseHotelFragment
      *	Parameter: Bundle savedInstanceState: The state of the instance
      *	Return: void: Not return anything
      */
@@ -73,10 +64,8 @@ public class ChooseHotelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_hotels_container_layout);
-        mAreHotelsDownloaded = true;
 
-        // get preferences
-        savedValues = getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
+        mAreHotelsDownloaded = true; // list of hotels are ready
 
         // check whether the action bar is null
         if( getSupportActionBar() != null )
@@ -106,6 +95,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.options_menu_layout, menu);
+        int confirm_ticket_item = 2;
         menu.getItem(confirm_ticket_item).setEnabled(false);
         return true;
     }
@@ -159,70 +149,6 @@ public class ChooseHotelActivity extends AppCompatActivity {
     }
 
 
-
-    /*
-     *	Function: onPause()
-     *	Description:
-     *       Saves data on pause
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    @Override
-    public void onPause() {
-
-        SaveData();
-        super.onPause();
-    }
-
-    /*
-     *	Function: onResume()
-     *	Description:
-     *       Loads data on resume
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        LoadData();
-
-    }
-
-
-    /*
-     *	Function: SaveData()
-     *	Description:
-     *       The purpose of this function is to save the saved preferences
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    private void SaveData() {
-        // save the instance variables
-
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("destination", destination);
-        editor.putInt("number_of_guests", number_of_guests);
-        editor.putInt("chosen_hotel", chosen_hotel);
-
-        editor.apply();
-    }
-
-
-    /*
-     *	Function: LoadData()
-     *	Description:
-     *       The purpose of this function is to load saved preferences
-     *	Parameter: Not receive anything
-     *	Return: None
-     */
-    private void LoadData() {
-        destination = savedValues.getString(sharedDestination, EMPTY);
-        number_of_guests = savedValues.getInt(sharedNumOfAdults, NONE);
-        number_of_guests += savedValues.getInt(sharedNumOfChildren, NONE);
-        chosen_hotel = savedValues.getInt(sharedHotelChoice, NONE);
-    }
-
     /*
      *	Function: onSupportNavigateUp()
      *	Description:
@@ -232,10 +158,14 @@ public class ChooseHotelActivity extends AppCompatActivity {
      */
     @Override
     public boolean onSupportNavigateUp() {
-
+        /* Check whether the current screen is the ChooseHotelFragment*/
         if (fm.getBackStackEntryCount() > 0) {
+            // if not, it means currently at the hotel detail screen so go back to the ChooseHotelFragment which is a list of hotels
             fm.popBackStack();
         } else {
+            /* if currently at ChooseHotelFragment, check whether the list of hotel is already downloaded.
+            *  If the list of hotel is already downloaded, go back to the first screen. Otherwise, go back to loading screen
+            */
             if(mAreHotelsDownloaded == true)
             {
                 /* when user switch back to home layout, they have to hit the search hotels button again. Otherwise

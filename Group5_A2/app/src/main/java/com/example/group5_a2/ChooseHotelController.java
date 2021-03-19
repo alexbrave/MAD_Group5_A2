@@ -1,8 +1,21 @@
+/*
+*	PROJECT: PROG3150 - ASSIGNMENT 2
+*	FILE: ChooseHotelController.java
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2021/03/15
+*	DESCRIPTION:
+		This file contains ChooseHotelController java. The purpose of this class is to contain the logic of 2 Fragments ChooseHotelFragment and ChooseHotelDetailFragment
+*/
+
 package com.example.group5_a2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/*
+ *  NAME : ChooseHotelController
+ *  PURPOSE : The purpose of this class is to to contain the logic of 2 Fragments ChooseHotelFragment and ChooseHotelDetailFragment
+ */
 public class ChooseHotelController {
     private final int NONE = 0;
     private final String EMPTY = "";
@@ -19,7 +32,6 @@ public class ChooseHotelController {
     // define instance variables
     private String mDestination = EMPTY;
     private int mNumber_of_guests = NONE;
-    private int mChosen_hotel = NONE;
 
     public String getDestination() {
         return mDestination;
@@ -27,43 +39,6 @@ public class ChooseHotelController {
 
     public int getNumber_of_guests() {
         return mNumber_of_guests;
-    }
-
-    public int getChosen_hotel() {
-        return mChosen_hotel;
-    }
-
-
-    /*
-     *	Function: SaveData()
-     *	Description:
-     *       The purpose of this function is to save the saved preferences
-     *	Parameter: SharedPreferences savedValues : the shared preferences in the application
-     *	Return: None
-     */
-    public void SaveData(SharedPreferences savedValues) {
-        // save the instance variables
-
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("destination", mDestination);
-        editor.putInt("number_of_guests", mNumber_of_guests);
-        editor.putInt("chosen_hotel", mChosen_hotel);
-
-        editor.apply();
-    }
-
-    /*
-     *	Function: SaveData(SharedPreferences savedValues, int iChosenHotel)
-     *	Description:
-     *       The purpose of this function is to save the saved preferences, especially for the hotel that is chosen
-     *	Parameter: SharedPreferences savedValues : the shared preferences in the application
-     *              int iChosenHotel             : The chosen hotel
-     *	Return: None
-     */
-    public void SaveData(SharedPreferences savedValues, int iChosenHotel) {
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putInt("chosen_hotel", mChosen_hotel);
-        editor.apply();
     }
     
     /*
@@ -77,6 +52,5 @@ public class ChooseHotelController {
         mDestination = savedValues.getString(sharedDestination, EMPTY);
         mNumber_of_guests = savedValues.getInt(sharedNumOfAdults, NONE);
         mNumber_of_guests += savedValues.getInt(sharedNumOfChildren, NONE);
-        mChosen_hotel = savedValues.getInt(sharedHotelChoice, NONE);
     }
 }
