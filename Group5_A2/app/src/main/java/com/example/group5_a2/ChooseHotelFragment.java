@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,6 +38,11 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     private final int hotel2 = 2;
     private final int hotel3 = 3;
     private final String TAG = "ChooseHotelFragment";
+
+    // key names for saving values when the hotel is being selected for reviewing
+    private final String HOTEL_NAME_KEY = "hotel_name";
+    private final String HOTEL_IMAGE_KEY = "hotel_image";
+    private final String HOTEL_DESCRIPTION_KEY = "hotel_description";
 
     private LinearLayout choose_hotel_options;
     private TextView choose_hotel_error;
@@ -73,7 +79,7 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
     }
 
     /*
-     *	Function: onCreate(@Nullable Bundle SavedInstanceState)
+     *	Function: onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
      *	Description:
      *       The purpose of this function is to create an instance of the TicketConfirm class.
      *	Parameter: Bundle savedInstanceState: The state of the instance
@@ -107,6 +113,32 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
         // hotel list adapter
         HotelListAdapter hotelListAdapter = new HotelListAdapter(ChooseHotelFragment.this.getContext(), R.layout.hotels_adapter_view_layout, arrHotelList);
         lvHotel.setAdapter(hotelListAdapter);
+
+        // Set event handler for each item in the list view
+        lvHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Hotel hotelDetails = (Hotel) lvHotel.getItemAtPosition(position);
+
+                fragment = new ChooseHotelDetailFragment();
+
+                // save the values of the chosen hotel for reviewing it details
+                Bundle args = new Bundle();
+                args.putString(HOTEL_NAME_KEY,hotelDetails.getHotelName());
+                args.putString(HOTEL_DESCRIPTION_KEY,hotelDetails.getHotelDescription());
+                args.putString(HOTEL_IMAGE_KEY,hotelDetails.getHotelImage());
+                fragment.setArguments(args);
+
+                // change fragment and add to backstack
+                fm.beginTransaction()
+                        .replace(R.id.choose_hotels_fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+
 
 //        if(destination.equals(EMPTY) || number_of_guests == NONE){
 //            choose_hotel_options.setVisibility(View.GONE);
