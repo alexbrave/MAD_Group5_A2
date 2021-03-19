@@ -1,8 +1,8 @@
 /*
-*	PROJECT: PROG3150 - ASSIGNMENT 1
+*	PROJECT: PROG3150 - ASSIGNMENT 2
 *	FILE: TicketConfirm.java
 *	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
-*	FIRST VERSION: 2020/04/08
+*	FIRST VERSION: 2021/03/19
 *	DESCRIPTION:
 		This file contains TicketConfirm java class which is a subclass of AppCompatActivity. The purpose of this class is to handle information
         in regards to ticket confirmation.

@@ -1,7 +1,20 @@
+/*
+*	PROJECT: PROG3150 - ASSIGNMENT 2
+*	FILE: TicketConfirm.java
+*	PROGRAMMER: Nghia Nguyen, Alex Braverman, Andrey Takhtamirov, Leon Vong
+*	FIRST VERSION: 2021/03/19
+*	DESCRIPTION:
+		This file contains the model class for the TicketConfirm controller.
+
+*/
 package com.example.group5_a2;
 
 import android.content.SharedPreferences;
 
+/*
+ *  NAME : TicketConfirmModel
+ *  PURPOSE : This class contains data which is used by TicketConfirm controller and view.
+ */
 public class TicketConfirmModel {
 
     // constants used by TicketConfirm
@@ -193,6 +206,4 @@ public class TicketConfirmModel {
     public String getTAGSSharedNumChildren() {
         return sharedNumOfChildren;
     }
-
-
 }
