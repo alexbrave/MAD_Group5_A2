@@ -43,6 +43,7 @@ import java.util.Date;
  *  PURPOSE : The purpose of this class is to create a home screen so that the user can fill out the necessary information and plan for a trip.
  */
 public class MainActivity extends AppCompatActivity {
+    //View Objects
     private EditText mStartDate;
     private EditText mEndDate;
     private EditText mDestination;
@@ -52,64 +53,37 @@ public class MainActivity extends AppCompatActivity {
     private TextView mNumOfChildrenProgress;
     private DatePickerDialog mDatePickerDialog;
     private Button mSearchButton;
-    private final String TAG = "MainActivity";
-    private final String DESTINATION_KEY = "destination";
-    private final String START_DATE_KEY = "startDate";
-    private final String END_DATE_KEY = "endDate";
-    private final String NUM_ADULTS_KEY = "numOfAdults";
-    private final String NUM_CHILDREN_KEY = "numOfChildren";
-    private String mDestinationValue;
-    private String mStartDateValue;
-    private String mEndDateValue;
-    private String mNumOfAdultsValue;
-    private String mNumOfChildrenValue;
-    private final int iDateSize = 3;
-    static public boolean mCanGoNextState = false;
-    static public boolean mReset = false;
 
+    //Model Object
+    private MainActivityModel mainModel;
 
-    // Shared Preferences values/variables
-    private SharedPreferences savedValues;
-    private final String sharedPrefsName = "Saved Values";
-    private final String sharedDestination = "destination";
-    private final String sharedStartDate = "start_date";
-    private final String sharedEndDate = "end_date";
-    private final String sharedNumOfAdults = "number_of_adults";
-    private final String sharedNumOfChildren = "number_of_children";
-
-
-    private final int NONE = 0;
-    private final String EMPTY = "";
-    private String destination = EMPTY;
-    private int number_of_guests = NONE;
-    private int chosen_hotel = NONE;
-
-    private final int confirm_ticket_item = 2;
-
-    // Getters
+    // Getters of Intractable View Objects
     public Button getSearchButton() {
         return mSearchButton;
     }
-
     public EditText getStartDate() {
         return mStartDate;
     }
-
     public EditText getEndDate() {
         return mEndDate;
     }
-
     public EditText getDestination() {
         return mDestination;
     }
-
     public TextView getNumAdults() {
         return mNumOfAdultsProgress;
     }
-
     public TextView getNumChild() {
         return mNumOfChildrenProgress;
     }
+
+    //Shared Preferences Object
+    private SharedPreferences savedValues;
+
+    //Static Booleans for Controller
+    static public boolean mCanGoNextState = false;
+    static public boolean mReset = false;
+    private final int confirm_ticket_item = 2;
 
     /*
      *	Function: onCreate(Bundle savedInstanceState)
@@ -124,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        savedValues = getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
+        //Set the Model Object
+        mainModel = new MainActivityModel();
+
+        savedValues = getSharedPreferences(mainModel.getTAGSharedPrefs(), MODE_PRIVATE);
 
         mDestination = (EditText) findViewById(R.id.destination);
         mStartDate = (EditText) findViewById(R.id.startDate);
@@ -144,24 +121,24 @@ public class MainActivity extends AppCompatActivity {
          */
         if (savedInstanceState != null) {
             // Destination
-            mDestinationValue = savedInstanceState.getString(DESTINATION_KEY);
-            mDestination.setText(mDestinationValue);
+            mainModel.setDestinationValue(savedInstanceState.getString(mainModel.getDestinationKey()));
+            mDestination.setText(mainModel.getDestinationValue());
 
             // Start date of the trip
-            mStartDateValue = savedInstanceState.getString(START_DATE_KEY);
-            mStartDate.setText(mStartDateValue);
+            mainModel.setStartDateValue(savedInstanceState.getString(mainModel.getStartDateKey()));
+            mStartDate.setText(mainModel.getStartDateValue());
 
             // End Date of the trip
-            mEndDateValue = savedInstanceState.getString(END_DATE_KEY);
-            mEndDate.setText(mEndDateValue);
+            mainModel.setEndDateValue(savedInstanceState.getString(mainModel.getEndDateKey()));
+            mEndDate.setText(mainModel.getEndDateValue());
 
             // Num of Adults
-            mNumOfAdultsValue = savedInstanceState.getString(DESTINATION_KEY);
-            mNumOfAdultsProgress.setText(mNumOfAdultsValue);
+            mainModel.setNumAdultsValue(savedInstanceState.getString(mainModel.getNumAdultsKey()));
+            mNumOfAdultsProgress.setText(mainModel.getNumAdultsValue());
 
             // Num of children
-            mNumOfChildrenValue = savedInstanceState.getString(NUM_CHILDREN_KEY);
-            mNumOfChildrenProgress.setText(mNumOfChildrenValue);
+            mainModel.setNumChildrenValue(savedInstanceState.getString(mainModel.getNumChildrenKey()));
+            mNumOfChildrenProgress.setText(mainModel.getNumChildrenValue());
         } else {
             mDestination.requestFocus();
         }
@@ -254,7 +231,13 @@ public class MainActivity extends AppCompatActivity {
         mNumChildSeekBar.setProgress(5);
     }
 
-    // added to test/debug/implement state management - alex, feb 13
+    /*
+     *	Function: SaveData()
+     *	Description:
+     *       The purpose of this function is to test/debug/implement state management
+     *	Parameter: None
+     *	Return: void: Not return anything
+     */
     private void SaveData() {
         // save the instance variables
 
@@ -262,22 +245,19 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = savedValues.edit();
         // Store the destination
         EditText et1 = (EditText) findViewById(R.id.destination);
-        editor.putString(sharedDestination, et1.getText().toString());
+        editor.putString(mainModel.getTAGSharedDestination(), et1.getText().toString());
         //Store the start date
         EditText et3 = (EditText) findViewById(R.id.startDate);
-        editor.putString(sharedStartDate, et3.getText().toString());
+        editor.putString(mainModel.getTAGSharedStartDate(), et3.getText().toString());
         // Store the end date
         EditText et4 = (EditText) findViewById(R.id.endDate);
-        editor.putString(sharedEndDate, et4.getText().toString());
+        editor.putString(mainModel.getTAGSharedEndDate(), et4.getText().toString());
         // Store the number of adults
         TextView et2 = (TextView) findViewById(R.id.numOfAdults_progress);
-        editor.putInt(sharedNumOfAdults, Integer.parseInt(et2.getText().toString()));
+        editor.putInt(mainModel.getTAGSharedNumAdults(), Integer.parseInt(et2.getText().toString()));
         // Store the number of children
         TextView et5 = (TextView) findViewById(R.id.numOfChildren_progress);
-        editor.putInt(sharedNumOfChildren, Integer.parseInt(et5.getText().toString()));
-
-        //editor.putInt("number_of_guests", Integer.parseInt(findViewById(R.id.numOfAdults).toString()));
-        //editor.putInt("chosen_hotel", chosen_hotel);
+        editor.putInt(mainModel.getTAGSSharedNumChildren(), Integer.parseInt(et5.getText().toString()));
 
         editor.apply();
     }
@@ -300,29 +280,29 @@ public class MainActivity extends AppCompatActivity {
         mNumOfChildrenProgress = (TextView) findViewById(R.id.numOfChildren_progress);
 
         if (mDestination.getText().toString().isEmpty() != true) {
-            mDestinationValue = mDestination.getText().toString();
-            savedInstanceState.putString(DESTINATION_KEY, mDestinationValue);
+            mainModel.setDestinationValue(mDestination.getText().toString());
+            savedInstanceState.putString(mainModel.getDestinationKey(), mainModel.getDestinationValue());
         }
 
 
         if (mStartDate.getText().toString().isEmpty() != true) {
-            mStartDateValue = mStartDate.getText().toString();
-            savedInstanceState.putString(START_DATE_KEY, mStartDateValue);
+            mainModel.setStartDateValue(mStartDate.getText().toString());
+            savedInstanceState.putString(mainModel.getStartDateKey(), mainModel.getStartDateValue());
         }
 
         if (mEndDate.getText().toString().isEmpty() != true) {
-            mEndDateValue = mEndDate.getText().toString();
-            savedInstanceState.putString(END_DATE_KEY, mEndDateValue);
+            mainModel.setEndDateValue(mEndDate.getText().toString());
+            savedInstanceState.putString(mainModel.getEndDateKey(), mainModel.getEndDateValue());
         }
 
         if (mNumOfAdultsProgress.getText().toString().isEmpty() != true) {
-            mNumOfAdultsValue = mNumOfAdultsProgress.getText().toString();
-            savedInstanceState.putString(NUM_ADULTS_KEY, mNumOfAdultsValue);
+            mainModel.setNumAdultsValue(mNumOfAdultsProgress.getText().toString());
+            savedInstanceState.putString(mainModel.getNumAdultsKey(), mainModel.getNumAdultsValue());
         }
 
         if (mNumOfChildrenProgress.getText().toString().isEmpty() != true) {
-            mNumOfChildrenValue = mNumOfChildrenProgress.getText().toString();
-            savedInstanceState.putString(NUM_CHILDREN_KEY, mNumOfChildrenValue);
+            mainModel.setNumChildrenValue(mNumOfChildrenProgress.getText().toString());
+            savedInstanceState.putString(mainModel.getNumChildrenKey(), mainModel.getNumChildrenValue());
         }
 
     }
@@ -479,7 +459,6 @@ public class MainActivity extends AppCompatActivity {
                 }, year, month, day);
 
         mDatePickerDialog.show();
-
     }
 
     /*

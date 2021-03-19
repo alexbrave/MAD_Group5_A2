@@ -127,7 +127,6 @@ public class ASyncDownload extends AppCompatActivity {
         return true;
     }
 
-
     /*
      *  NAME : DownloadFileFromURL
      *  PURPOSE : ASync class that downloads files from a URL
