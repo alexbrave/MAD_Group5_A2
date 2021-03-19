@@ -93,6 +93,8 @@
     <string name="e_g_10">e.g. 10</string>
     <string name="select_a_date">Select a date</string>
     <string name="choose_a_destination">Choose a destination</string>
+    <string name="leave_review">Please enter your name, review, and rating:</string>
+
 
 
 </resources>

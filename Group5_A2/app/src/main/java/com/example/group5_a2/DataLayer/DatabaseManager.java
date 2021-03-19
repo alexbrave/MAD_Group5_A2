@@ -3,6 +3,7 @@
 package com.example.group5_a2.DataLayer;
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -258,6 +259,53 @@ public class DatabaseManager {
 
         return userReviews;
     }
+
+    // SET UP ABILITY TO INSERT DATA, LIKE BOOKED_TICKET, AND USER_REVIEW
+    // BUT NOT HOTEL_INFO
+    public long insertBookedTicket(BookedTicket bookedTicket) {
+        ContentValues cv = new ContentValues();
+        cv.put(BOOKED_TICKET_NUM_ADULTS, bookedTicket.getNumAdults());
+        cv.put(BOOKED_TICKET_NUM_KIDS, bookedTicket.getNumKids());
+        cv.put(BOOKED_TICKET_DESTINATION, bookedTicket.getDestination());
+        cv.put(BOOKED_TICKET_HOTEL, bookedTicket.getHotel());
+        cv.put(BOOKED_TICKET_START_DATE, bookedTicket.getStartDate());
+        cv.put(BOOKED_TICKET_END_DATE, bookedTicket.getEndDate());
+
+        this.openWriteableDB();
+        long rowID = db.insert(BOOKED_TICKET_TABLE, null, cv);
+        this.closeDB();
+
+        return rowID;
+    }
+
+    // Insert User review
+    public long insertUserReview(UserReview userReview) {
+        ContentValues cv = new ContentValues();
+        cv.put(USER_REVIEW_NAME, userReview.getName());
+        cv.put(USER_REVIEW_SCORE, userReview.getScore());
+        cv.put(USER_REVIEW_REVIEW, userReview.getReview());
+
+        this.openWriteableDB();
+        long rowID = db.insert(USER_REVIEW_TABLE, null, cv);
+        this.closeDB();
+
+        return rowID;
+    }
+
+    // Insert User review
+    public long insertHotelInfo(HotelInfo hotelInfo) {
+        ContentValues cv = new ContentValues();
+        cv.put(HOTEL_INFO_NAME, hotelInfo.getName());
+        cv.put(HOTEL_INFO_DESCRIPTION, hotelInfo.getDescription());
+        cv.put(HOTEL_INFO_IMAGE_URL, hotelInfo.getImageUrl());
+
+        this.openWriteableDB();
+        long rowID = db.insert(HOTEL_INFO_TABLE, null, cv);
+        this.closeDB();
+
+        return rowID;
+    }
+
 //    public List getList(String name) {
 //        String where = LIST_NAME + "= ?";
 //        String[] whereArgs = { name };
@@ -346,22 +394,7 @@ public class DatabaseManager {
 //        }
 //    }
 
-    // SET UP ABILITY TO INSERT DATA, LIKE BOOKED_TICKET, AND USER_REVIEW
-    // BUT NOT HOTEL_INFO
-//    public long insertTask(Task task) {
-//        ContentValues cv = new ContentValues();
-//        cv.put(TASK_LIST_ID, task.getListId());
-//        cv.put(TASK_NAME, task.getName());
-//        cv.put(TASK_NOTES, task.getNotes());
-//        cv.put(TASK_COMPLETED, task.getCompletedDate());
-//        cv.put(TASK_HIDDEN, task.getHidden());
-//
-//        this.openWriteableDB();
-//        long rowID = db.insert(TASK_TABLE, null, cv);
-//        this.closeDB();
-//
-//        return rowID;
-//    }
+
 
 //    public int updateTask(Task task) {
 //        ContentValues cv = new ContentValues();

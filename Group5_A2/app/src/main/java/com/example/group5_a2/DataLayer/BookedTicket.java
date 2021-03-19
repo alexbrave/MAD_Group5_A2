@@ -19,12 +19,10 @@ public class BookedTicket {
     public static final int TRUE = 1;
     public static final int FALSE = 0;
 
-    // This constructor is not really used, since we first instantiate a BookedTicket object
-    // then populate each field individually from data we get from the database
-    public BookedTicket(int tripId, int numAdults, int numKids,
+    // Constructor for populating each field on instantiation
+    public BookedTicket(int numAdults, int numKids,
                         String destination, String hotel,
                         String startDate, String endDate) {
-        this.tripId = tripId;
         this.numAdults = numAdults;
         this.numKids = numKids;
         this.destination = destination;

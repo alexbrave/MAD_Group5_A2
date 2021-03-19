@@ -29,6 +29,10 @@
         <activity
             android:name=".TicketConfirm"
             android:label="@string/ticket_confirm"/>
+        <activity
+            android:name=".UserReviewActivity"
+            android:label="User Review"
+            android:noHistory="true"/>
     </application>
 
 </manifest>
