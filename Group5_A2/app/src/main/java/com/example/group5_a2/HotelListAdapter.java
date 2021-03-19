@@ -40,15 +40,18 @@ public class HotelListAdapter extends ArrayAdapter<Hotel> {
         // Create hotel object with the information
         Hotel hHotel = new Hotel(sHotelName, sHotelDescription, sHotelImage);
 
+        // inflate object to the view
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
+        // inflate the object's information
         ImageView ivHotelImage = (ImageView) convertView.findViewById(R.id.hotel_image);
         TextView tvHotelName = (TextView) convertView.findViewById(R.id.hotel_name);
         TextView tvHotelDescription = (TextView) convertView.findViewById(R.id.hotel_description);
 
         tvHotelName.setText(sHotelName);
         tvHotelDescription.setText(sHotelDescription);
+        Glide.with(mContext).load(sHotelImage).placeholder(R.drawable.hotel1_image).into(ivHotelImage);
 
         return convertView;
 
