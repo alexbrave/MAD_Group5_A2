@@ -123,6 +123,8 @@ public class TicketConfirm extends AppCompatActivity {
                     return;
                 }
 
+
+
                 // Confirm successful and back to the beginning
                 Intent intent = new Intent(TicketConfirm.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

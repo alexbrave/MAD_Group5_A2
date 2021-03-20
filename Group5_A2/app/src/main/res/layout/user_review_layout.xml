@@ -9,11 +9,11 @@
 
     <TextView
         android:id="@+id/askToReview"
-        android:layout_width="61dp"
+        android:layout_width="match_parent"
         android:layout_height="21dp"
-        android:layout_marginStart="172dp"
         android:layout_marginTop="112dp"
         android:text="Thank you for writing a review"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

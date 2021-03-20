@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 import com.example.group5_a2.HotelModel;
@@ -121,17 +122,33 @@ public class DatabaseManager {
             db.execSQL(CREATE_BOOKED_TICKET_TABLE);
             db.execSQL(CREATE_USER_REVIEW_TABLE);
 
-            String hotel1SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
-                R.string.hotel1_name, R.string.hotel1_description, R.string.hotel1_image_url);
-            String hotel2SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
-                    R.string.hotel2_name, R.string.hotel2_description, R.string.hotel2_image_url);
-            String hotel3SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
-                    R.string.hotel1_name, R.string.hotel1_description, R.string.hotel1_image_url);
-
-            // add some test data to hotelInfo
-            db.execSQL(hotel1SQL);
-            db.execSQL(hotel2SQL);
-            db.execSQL(hotel3SQL);
+            db.execSQL("INSERT INTO hotelInfo VALUES " +
+                    "('Grand Fiesta Resort', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191866279624704/img1.jpg')");
+            db.execSQL("INSERT INTO hotelInfo VALUES " +
+                    "('Chalet Belle Roche', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191890623234098/img2.jpg')");
+            db.execSQL("INSERT INTO hotelInfo VALUES " +
+                    "('Hotel Britannique', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191902576214074/img3.jpg')");
 
 //            db.execSQL("INSERT INTO hotelInfo VALUES " +
 //                    "('Another Hotel', 'Another description', 'anotherTestURL.com')");
@@ -198,8 +215,8 @@ public class DatabaseManager {
         while (cursor.moveToNext()) {
             HotelInfo hI = new HotelInfo();
             hI.setName(cursor.getString(HOTEL_INFO_NAME_COL));
+            hI.setName(cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
             hI.setDescription(cursor.getString(HOTEL_INFO_DESCRIPTION_COL));
-            hI.setImageUrl(cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
 
             hotelInfos.add(hI);
         }
@@ -215,12 +232,14 @@ public class DatabaseManager {
     public ArrayList<HotelModel> getHotelModels() {
         ArrayList<HotelModel> hotelModels = new ArrayList<HotelModel>();
         openReadableDB();
+        String fileDirectory = Environment.getExternalStorageDirectory().toString() + "/MAD/";
         Cursor cursor = db.query(HOTEL_INFO_TABLE,
                 null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             HotelModel hm = new HotelModel(cursor.getString(HOTEL_INFO_NAME_COL),
                     cursor.getString(HOTEL_INFO_DESCRIPTION_COL),
-                    cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
+                    fileDirectory + "img" + String.valueOf(cursor.getPosition() + 1) + ".jpg");
+
             hotelModels.add(hm);
         }
         closeCursor(cursor);

@@ -116,11 +116,17 @@ public class ChooseHotelFragment extends Fragment implements View.OnClickListene
         HotelModel hotel3 = new HotelModel(getString(R.string.hotel3_name),getString(R.string.hotel3_description), fileDirectory + "img3.jpg");
 
 
+        DatabaseManager db = new DatabaseManager(getActivity());
+
+
+        // User DatabaseManager to get hotel list
+        ArrayList<HotelModel> arrHotelList = db.getHotelModels();
+
         // add hotel object to an array list
-        ArrayList<HotelModel> arrHotelList = new ArrayList<>();
-        arrHotelList.add(hotel1);
-        arrHotelList.add(hotel2);
-        arrHotelList.add(hotel3);
+
+//        arrHotelList.add(hotel1);
+//        arrHotelList.add(hotel2);
+//        arrHotelList.add(hotel3);
 
         // hotel list adapter
         HotelListAdapter hotelListAdapter = new HotelListAdapter(ChooseHotelFragment.this.getContext(), R.layout.hotels_adapter_view_layout, arrHotelList);
