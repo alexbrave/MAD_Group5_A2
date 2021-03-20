@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityModel mainModel;
 
     // Getters of Intractable View Objects
-    public Button getSearchButton() {
-        return mSearchButton;
-    }
+    public Button getSearchButton() { return mSearchButton; }
     public EditText getStartDate() {
         return mStartDate;
     }
@@ -73,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView getNumAdults() {
         return mNumOfAdultsProgress;
     }
-    public TextView getNumChild() {
-        return mNumOfChildrenProgress;
-    }
+    public TextView getNumChild() { return mNumOfChildrenProgress; }
 
     //Shared Preferences Object
     private SharedPreferences savedValues;
@@ -84,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     static public boolean mCanGoNextState = false;
     static public boolean mReset = false;
     private final int confirm_ticket_item = 2;
+    private final String ACTIVITY_KEY = "ACTIVITY_KEY";
+    private String ACTIVITY = "FIRST";
 
     /*
      *	Function: onCreate(Bundle savedInstanceState)
@@ -183,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     SaveData();
 
                     Intent intent = new Intent(MainActivity.this, ASyncDownload.class);
+                    intent.putExtra(ACTIVITY_KEY, ACTIVITY);
                     startActivity(intent);
                 }
                 return;

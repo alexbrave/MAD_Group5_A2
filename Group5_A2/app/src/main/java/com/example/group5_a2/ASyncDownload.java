@@ -22,7 +22,6 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,6 +47,8 @@ public class ASyncDownload extends AppCompatActivity {
     private Context mContext=ASyncDownload.this;
     private ProgressBar progressBar;
     private static final int REQUEST = 112;
+    private final String ACTIVITY_KEY = "ACTIVITY_KEY";
+    private String ACTIVITY = "THIRD";
 
     private int currentDownloadIterator;
 
@@ -127,6 +128,33 @@ public class ASyncDownload extends AppCompatActivity {
         }
         return true;
     }
+
+    /*
+     *	Function: onResume()
+     *	Description:
+     *       The purpose of this function is to handle the override and handle the back press when coming from the third menu
+     *	Parameter:  None
+     *	Return: void : None
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Get Activity Intent
+        String prevActivity = getIntent().getExtras().getString("ACTIVITY_KEY");
+        if(!prevActivity.equals("FIRST"))
+        {
+            //Go back to first screen
+            Intent intent = new Intent(ASyncDownload.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            //Set activity to the third
+            getIntent().putExtra(ACTIVITY_KEY, ACTIVITY);
+        }
+    }
+
 
     /*
      *  NAME : DownloadFileFromURL
