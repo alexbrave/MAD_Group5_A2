@@ -51,6 +51,8 @@ public class TicketConfirm extends AppCompatActivity {
     private String mChosenHotel;
     private String mChosenHotelImage;
     private Button confirmButton;
+    private Button writeReviewButton;
+
 
     // Shared Preferences values/variables
     private SharedPreferences savedValues;
@@ -77,6 +79,7 @@ public class TicketConfirm extends AppCompatActivity {
         SharedPreferences.Editor editor = savedValues.edit();
 
         confirmButton = (Button) findViewById(R.id.confirm_btn);
+        writeReviewButton = (Button) findViewById(R.id.write_review);
 
         //Load Data from SharedPreferences
         LoadData();
@@ -134,6 +137,16 @@ public class TicketConfirm extends AppCompatActivity {
                 editor.commit();
                 MainActivity.mCanGoNextState = false;
                 MainActivity.mReset = true;
+            }
+        });
+
+        // Allow the user to write a review
+        writeReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TicketConfirm.this,
+                        UserReviewActivity.class);
+                startActivity(intent);
             }
         });
 

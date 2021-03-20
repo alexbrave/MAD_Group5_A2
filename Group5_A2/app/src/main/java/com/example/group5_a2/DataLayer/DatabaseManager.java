@@ -11,6 +11,9 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.group5_a2.HotelModel;
+import com.example.group5_a2.R;
+
 public class DatabaseManager {
 
     // database constants
@@ -118,29 +121,22 @@ public class DatabaseManager {
             db.execSQL(CREATE_BOOKED_TICKET_TABLE);
             db.execSQL(CREATE_USER_REVIEW_TABLE);
 
+            String hotel1SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
+                R.string.hotel1_name, R.string.hotel1_description, R.string.hotel1_image_url);
+            String hotel2SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
+                    R.string.hotel2_name, R.string.hotel2_description, R.string.hotel2_image_url);
+            String hotel3SQL = String.format("INSERT INTO hotelInfo VALUES ('%s', '%s', '%s')",
+                    R.string.hotel1_name, R.string.hotel1_description, R.string.hotel1_image_url);
+
             // add some test data to hotelInfo
-            db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Test Hotel', 'Test description', 'testURL.com')");
-            db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Another Hotel', 'Another description', 'anotherTestURL.com')");
-            db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Last Hotel', 'Last description', 'lastURL.com')");
+            db.execSQL(hotel1SQL);
+            db.execSQL(hotel2SQL);
+            db.execSQL(hotel3SQL);
 
-            // add test data to bookedTicket
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('1', '2', '3', 'Helsinki', 'Sheraton', '01/01/2021', '02/02/2021')");
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('2', '2', '3', 'Honolulu', 'Hilton', '01/01/2021', '02/02/2021')");
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('3', '2', '3', 'Kingston', 'Holiday Inn', '01/01/2021', '02/02/2021')");
-
-            // add some test data to userReview
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person A', '5', 'App works great!')");
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person B', '3', 'Could use some work.')");
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person C', '4', 'Works as expected')");
+//            db.execSQL("INSERT INTO hotelInfo VALUES " +
+//                    "('Another Hotel', 'Another description', 'anotherTestURL.com')");
+//            db.execSQL("INSERT INTO hotelInfo VALUES " +
+//                    "('Last Hotel', 'Last description', 'lastURL.com')");
         }
 
         // This method is not really necessary for us, but it exists in Igor's code, and it
@@ -211,6 +207,26 @@ public class DatabaseManager {
         closeDB();
 
         return hotelInfos;
+    }
+
+
+    // This method will return an ArrayList of HotelInfo objects, that will be populated
+    // with data from the database!
+    public ArrayList<HotelModel> getHotelModels() {
+        ArrayList<HotelModel> hotelModels = new ArrayList<HotelModel>();
+        openReadableDB();
+        Cursor cursor = db.query(HOTEL_INFO_TABLE,
+                null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            HotelModel hm = new HotelModel(cursor.getString(HOTEL_INFO_NAME_COL),
+                    cursor.getString(HOTEL_INFO_DESCRIPTION_COL),
+                    cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
+            hotelModels.add(hm);
+        }
+        closeCursor(cursor);
+        closeDB();
+
+        return hotelModels;
     }
 
     // This method will return an ArrayList of BookedTicket objects, that will be populated
