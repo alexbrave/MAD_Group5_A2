@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.group5_a2.DataLayer.DatabaseManager;
 import com.example.group5_a2.DataLayer.UserReview;
@@ -34,6 +35,18 @@ public class UserReviewController {
 //    writeReview = (Button) findViewById(R.id.write_review);
 
 
+//<item
+//    android:id="@+id/write_review"
+//    android:title="Write a Review"/>
+
+//    // The user can write a review from any screen
+//        if(item.getItemId() == R.id.write_review) {
+//        intent = new Intent(this, UserReviewActivity.class);
+//        startActivity(intent);
+//        Toast.makeText(this,
+//                R.string.write_review_layout_label,
+//                Toast.LENGTH_SHORT).show();
+//    }
 
 //    //Click Listener for confirmation
 //        writeReview.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +61,7 @@ public class UserReviewController {
 //    });
 
 
-//    <item
-//    android:id="@+id/write_review"
-//    android:title="Write a Review"/>
+
 
 
 //    <Button

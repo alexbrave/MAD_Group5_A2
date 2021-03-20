@@ -75,6 +75,11 @@
     </string>
 
 
+    <string name="hotel1_image_url">https://cdn.discordapp.com/attachments/822191686058115113/822191866279624704/img1.jpg</string>
+    <string name="hotel2_image_url">https://cdn.discordapp.com/attachments/822191686058115113/822191890623234098/img2.jpg</string>
+    <string name="hotel3_image_url">https://cdn.discordapp.com/attachments/822191686058115113/822191902576214074/img3.jpg</string>
+
+
     <!-- Here are some messages that are used in the app -->
     <string name="chooseHotelMessage">Please choose a hotel</string>
     <string name="destinationLabel">Destination: </string>
@@ -93,7 +98,11 @@
     <string name="e_g_10">e.g. 10</string>
     <string name="select_a_date">Select a date</string>
     <string name="choose_a_destination">Choose a destination</string>
+
+
     <string name="leave_review">Please enter your name, review, and rating:</string>
+    <string name="write_review_layout_label">Current screen: Write a Review</string>
+
 
 
 

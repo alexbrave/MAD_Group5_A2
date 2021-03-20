@@ -9,7 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
+
+import com.example.group5_a2.HotelModel;
+import com.example.group5_a2.R;
 
 public class DatabaseManager {
 
@@ -118,29 +122,38 @@ public class DatabaseManager {
             db.execSQL(CREATE_BOOKED_TICKET_TABLE);
             db.execSQL(CREATE_USER_REVIEW_TABLE);
 
-            // add some test data to hotelInfo
             db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Test Hotel', 'Test description', 'testURL.com')");
+                    "('Grand Fiesta Resort', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191866279624704/img1.jpg')");
             db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Another Hotel', 'Another description', 'anotherTestURL.com')");
+                    "('Chalet Belle Roche', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191890623234098/img2.jpg')");
             db.execSQL("INSERT INTO hotelInfo VALUES " +
-                    "('Last Hotel', 'Last description', 'lastURL.com')");
+                    "('Hotel Britannique', " +
+                    "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+                    "        Duis et viverra elit, et placerat eros. Mauris id ornare felis.\n" +
+                    "        Integer purus massa, sollicitudin in massa vitae, porta ultrices ex.\n" +
+                    "        Duis eu rhoncus odio. Aliquam vel placerat neque.\n" +
+                    "        Suspendisse malesuada nisi at sem volutpat, eget mollis lorem iaculis.\n" +
+                    "        Proin volutpat accumsan nulla nec aliquam.', " +
+                    "'https://cdn.discordapp.com/attachments/822191686058115113/822191902576214074/img3.jpg')");
 
-            // add test data to bookedTicket
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('1', '2', '3', 'Helsinki', 'Sheraton', '01/01/2021', '02/02/2021')");
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('2', '2', '3', 'Honolulu', 'Hilton', '01/01/2021', '02/02/2021')");
-            db.execSQL("INSERT INTO bookedTicket VALUES " +
-                    "('3', '2', '3', 'Kingston', 'Holiday Inn', '01/01/2021', '02/02/2021')");
-
-            // add some test data to userReview
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person A', '5', 'App works great!')");
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person B', '3', 'Could use some work.')");
-            db.execSQL("INSERT INTO userReview VALUES " +
-                    "('Person C', '4', 'Works as expected')");
+//            db.execSQL("INSERT INTO hotelInfo VALUES " +
+//                    "('Another Hotel', 'Another description', 'anotherTestURL.com')");
+//            db.execSQL("INSERT INTO hotelInfo VALUES " +
+//                    "('Last Hotel', 'Last description', 'lastURL.com')");
         }
 
         // This method is not really necessary for us, but it exists in Igor's code, and it
@@ -202,8 +215,8 @@ public class DatabaseManager {
         while (cursor.moveToNext()) {
             HotelInfo hI = new HotelInfo();
             hI.setName(cursor.getString(HOTEL_INFO_NAME_COL));
+            hI.setName(cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
             hI.setDescription(cursor.getString(HOTEL_INFO_DESCRIPTION_COL));
-            hI.setImageUrl(cursor.getString(HOTEL_INFO_IMAGE_URL_COL));
 
             hotelInfos.add(hI);
         }
@@ -211,6 +224,28 @@ public class DatabaseManager {
         closeDB();
 
         return hotelInfos;
+    }
+
+
+    // This method will return an ArrayList of HotelInfo objects, that will be populated
+    // with data from the database!
+    public ArrayList<HotelModel> getHotelModels() {
+        ArrayList<HotelModel> hotelModels = new ArrayList<HotelModel>();
+        openReadableDB();
+        String fileDirectory = Environment.getExternalStorageDirectory().toString() + "/MAD/";
+        Cursor cursor = db.query(HOTEL_INFO_TABLE,
+                null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            HotelModel hm = new HotelModel(cursor.getString(HOTEL_INFO_NAME_COL),
+                    cursor.getString(HOTEL_INFO_DESCRIPTION_COL),
+                    fileDirectory + "img" + String.valueOf(cursor.getPosition() + 1) + ".jpg");
+
+            hotelModels.add(hm);
+        }
+        closeCursor(cursor);
+        closeDB();
+
+        return hotelModels;
     }
 
     // This method will return an ArrayList of BookedTicket objects, that will be populated
